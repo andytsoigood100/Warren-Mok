@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-from streamlit_js_eval import streamlit_js_eval
 import datetime
 
 # 設置頁面配置
