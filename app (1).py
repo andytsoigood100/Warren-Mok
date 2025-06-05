@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Set page configuration
-st.set_page_config(page_title="莫菲特報告生成器",
+st.set_page_config(page_title="莫菲特 寬Sir報告生成器",
                    page_icon="📈",
                    layout="centered",
                    initial_sidebar_state="collapsed")
@@ -83,7 +83,7 @@ def generate_report():
         price_change_text = f"從 {old_price:.2f} 元調整至 {new_price:.2f} 元"
 
     # 莫菲特的學歷背景
-    background = "牛角金會員，惠康Yuu資深會員，247fitness黑金會員，HKTVmall創始會員，香港大學space系畢業，香港理工大學cc系畢業。"
+    background = "牛角金會員，惠康Yuu資深會員，247fitness黑金會員，HKTVmall創始會員，麥當奴媽咪會會員，香港大學space系畢業，香港理工大學cc系畢業。"
 
     # 生成報告文本
     report = (
@@ -111,8 +111,8 @@ col1, col2 = st.columns([1, 2])
 with col1:
     st.image("assets/mofit.png", width=200)
 with col2:
-    st.title("莫菲特報告生成器")
-    st.write("輸入股票信息，生成莫菲特專業分析報告")
+    st.title("莫菲特寞Sir報告生成器")
+    st.write("輸入股票信息，生成莫菲特寞Sir專業分析報告")
 
 # 創建輸入部件
 with st.container():
@@ -148,8 +148,12 @@ with st.container():
         price_comparison = False
 
     # 買入評級選項 (只在新價格 > 舊價格時顯示)
-    buy_options = ['強烈買入', '增持', '跑赢大盤', '訓身買入', '借爆孖展買入', '自定義']
-    sell_options = ['賣出', '沽售評價', '極度悲觀', '等破産', '等變牆紙', 'IFC天台見', '自定義']
+    buy_options = ['強烈買入', '增持', '跑赢大盤', '訓身買入', '借爆孖展買入', '​​無腦衝高​​', '​​唔買走雞','​​槓桿爆升','​​睇錯照Hold​​','​​升到月球','​​莊家送錢','All-in等退休', 
+                   '升就追, 跌就溝, 出糧就入貨, 止蝕係多餘, 回調姐係特價, 止賺都係多餘, 高處未算高, 心雄既就買埋call', '睇錯就長揸，總會返家鄉​​', '別人恐懼我溝貨，別人溝貨我恐懼', 
+                   '别人恐惧我All-in，别人All-in我退休', '回調就是上車機會，越跌越買，買到破產！', '自定義']
+    sell_options = ['賣出', '沽售評價', '極度悲觀', '等破産', '等變牆紙', 'IFC天台見', '睇淡到仆街', '跌到對住屏幕喊', '​​唔沽等死​​', '槓桿爆煲​​', '恒大2.0', '跌到地核', 
+                    '別人貪婪我跑路，別人跑路我抄底——然後繼續跌', '反彈就是逃命機會，再不跑就真成百年長韭股東', '賬戶紅彤彤？那是莊家在放煙花，慶祝你韭菜虧錢', '短線變長線，長線變維權，維權變佛系', 
+                    '永世做外賣仔', '自定義']
 
     if price_comparison and old_price != 0 and new_price != 0:
         st.info("新價格大於舊價格，可選擇買入評級")
@@ -210,4 +214,4 @@ if st.session_state.report:
 
 # 添加底部說明
 st.markdown("---")
-st.caption("本應用僅供娛樂，不構成任何投資建議。")
+st.caption("本應用僅供娛樂，不構成任何投資建議，我屌你老母。")
