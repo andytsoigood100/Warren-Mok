@@ -2,7 +2,7 @@ app.py
 
 -- coding: utf-8 --
 
-莫菲特報告生成器（Streamlit 版）
+#莫菲特報告生成器（Streamlit 版）
 
 import random
 import streamlit as st
@@ -140,3 +140,4 @@ if submitted:
         fulltext = "\n".join(summarylines)
 
         st.textarea("報告文本（可複製）", value=fulltext, height=180)
+
