@@ -15,7 +15,7 @@ negative_actions = [
 
 positive_ratings = [
     "借爆孖展買入", "跑赢大盤", "訓身買入", "All-in", "十倍孖展", 
-    "增大力持", "強烈買入", "唔买走宝", "時代既選擇", "財富自由", 
+    "增大力持", "強烈走宝", "時代既選擇", "財富自由", 
     "極度看多", "槓桿狂熱", "確信買入", "估值重大重估"
 ]
 
@@ -38,7 +38,7 @@ investment_quotes = [
     "主力吃肉，韭菜喝湯；主力撤退，韭菜進場。",
     "每位韭菜的心聲：我就是那個例外。",
     "韭菜的優勢：虧錢的速度比別人快。",
-    "韭菜的日常：追高殺跌，反覆被收割。",
+    "韭菜的日常：覆被收割。",
     "股市最大的謊言：我是為了價值投資而來的。",
     "韭菜的夢想：一夜暴富；韭菜的現實：一夜歸零。",
     "不是每棵韭菜都能成為參天大樹，大多數都被割掉了。",
@@ -59,7 +59,7 @@ st.markdown(f"**報告日期:** {current_date}")
 # 使用者輸入
 company_name = st.text_input("1. 公司名稱:")
 old_price = st.number_input("2. 舊價格 (元):", min_value=0.0, format="%.2f")
-new_price = st.number_input("3. 新價格 (元):", min_value=0.0, format="%.2f")
+new_price = st.number_input("3. 新價格 (元):", min_value=02f")
 
 if st.button("生成報告"):
     if not company_name:
@@ -72,31 +72,36 @@ if st.button("生成報告"):
         percentage_change = (price_change / old_price) * 100 if old_price != 0 else 0
 
         # 報告內容
-        st.markdown(f"**著名投資人莫菲特給予:** {company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。")
+        report = f"""
+**著名投資人莫菲特給予:**  
+{company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。
 
+"""
         if price_change > 0:
             rating = random.choice(positive_ratings)
             action = random.choice(positive_actions)
-            st.markdown(f"**維持:** {rating}")
-            st.markdown(f"**評級 上升 至:** {action}")
+            report += f"**維持:** {rating}\n"
+            report += f"**評級 上升 至:** {action}\n"
         elif price_change < 0:
             rating = random.choice(negative_ratings)
             action = random.choice(negative_actions)
-            st.markdown(f"**維持:** {rating}")
-            st.markdown(f"**評級 下降 至:** {action}")
+            report += f"**維持:** {rating}\n"
+            report += f"**評級action}\n"
         else:
             rating = random.choice(neutral_ratings)
-            st.markdown(f"**維持:** {rating}")
+            report += f"**維持:** {rating}\n"
 
-# 隨機顯示投資箴言
-st.markdown(f"**——莫菲特箴言**")
-st.markdown(f"> {random.choice(investment_quotes)}")
+        # 添加投資箴言
+        quote = random.choice(investment_quotes)
+        report += f"\n**——莫菲特箴言**\n> {quote}\n"
 
-# 最下方顯示莫菲特資歷
-st.markdown("""
----
+        # 添加莫菲特資歷
+        report += """
 **——莫菲特資歷**  
 - 對沖基金莫郡創辦人, CEO, 董事長;  
 - 華爾街工作25年+ (1979-2004年);  
 - 天使投資人;
-""")
+"""
+
+        # 在文本框中顯示完整的報告
+        st.text_area("完整報告（可複製）:", report, height=300)
