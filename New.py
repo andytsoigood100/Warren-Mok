@@ -138,4 +138,5 @@ if submitted:
             summary_lines.append("維持中性評級／按兵不動。")
 
         fulltext = "\n".join(summarylines)
+
         st.textarea("報告文本（可複製）", value=fulltext, height=180)
