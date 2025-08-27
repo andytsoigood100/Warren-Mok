@@ -6,7 +6,7 @@ from datetime import datetime
 negative_ratings = [
     "沽售評價", "極度悲觀", "等變恒大牆紙", "IFC天台見", "等破産", 
     "割韭菜", "接火棒", "接刀", "坐艇", "鐵達尼號", 
-    "留返啲錢嚟瞓天橋底", "送外賣維生", "點心紙變廢紙"
+    "留返啲錢嚟搭巴士都好", "瞓天橋底", "送外賣維生", "點心紙變廢紙"
 ]
 
 negative_actions = [
@@ -31,7 +31,7 @@ investment_quotes = [
     "新手入場三步曲：買高、套牢、割肉。",
     "股市就像一場派對，韭菜永遠是最後一個知道的。",
     "不要和韭菜談風險，他們只關心暴富。",
-    "韭菜漲。",
+    "韭菜的核心信仰：這次一定會漲。",
     "股市的真相：韭菜的錢包是主力的提款機。",
     "韭菜的特長：在最高點買入，在最低點賣出。",
     "韭菜的口頭禪：再等等，應該會漲回來的。",
@@ -52,7 +52,8 @@ investment_quotes = [
 # Streamlit 標題
 st.title("莫菲特報告生成器")
 
-# 自動顯示日期().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
+# 自動顯示日期
+current_date = datetime.now().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
 st.markdown(f"**報告日期:** {current_date}")
 
 # 使用者輸入
@@ -76,17 +77,18 @@ if st.button("生成報告"):
 {company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。
 
 """
-        if            rating = random.choice(positive_ratings)
+        if price_change > 0:
+            rating = random.choice(positive_ratings)  # 直接賦值
             action = random.choice(positive_actions)
             report += f"**維持:** {rating}\n"
             report += f"**評級 上升 至:** {action}\n"
         elif price_change < 0:
-            rating = random.choice(negative_ratings)
+            rating = random.choice(negative_ratings)  # 直接賦值
             action = random.choice(negative_actions)
             report += f"**維持:** {rating}\n"
             report += f"**評級 下降 至:** {action}\n"
         else:
-            rating = random.choice(neutral_ratings)
+            rating = random.choice(neutral_ratings)  # 直接賦值
             report += f"**維持:** {rating}\n"
 
         # 添加投資箴言
