@@ -6,7 +6,7 @@ from datetime import datetime
 negative_ratings = [
     "沽售評價", "極度悲觀", "等變恒大牆紙", "IFC天台見", "等破産", 
     "割韭菜", "接火棒", "接刀", "坐艇", "鐵達尼號", 
-    "留返啲錢嚟搭巴士都好", "瞓天橋底", "送外賣維生", "點心紙變廢紙"
+    "留返啲錢嚟瞓天橋底", "送外賣維生", "點心紙變廢紙"
 ]
 
 negative_actions = [
@@ -15,7 +15,7 @@ negative_actions = [
 
 positive_ratings = [
     "借爆孖展買入", "跑赢大盤", "訓身買入", "All-in", "十倍孖展", 
-    "增大力持", "強烈走宝", "時代既選擇", "財富自由", 
+    "增大力持", "強烈買入", "唔买走宝", "時代既選擇", "財富自由", 
     "極度看多", "槓桿狂熱", "確信買入", "估值重大重估"
 ]
 
@@ -31,14 +31,14 @@ investment_quotes = [
     "新手入場三步曲：買高、套牢、割肉。",
     "股市就像一場派對，韭菜永遠是最後一個知道的。",
     "不要和韭菜談風險，他們只關心暴富。",
-    "韭菜的核心信仰：這次一定會漲。",
+    "韭菜漲。",
     "股市的真相：韭菜的錢包是主力的提款機。",
     "韭菜的特長：在最高點買入，在最低點賣出。",
     "韭菜的口頭禪：再等等，應該會漲回來的。",
     "主力吃肉，韭菜喝湯；主力撤退，韭菜進場。",
     "每位韭菜的心聲：我就是那個例外。",
     "韭菜的優勢：虧錢的速度比別人快。",
-    "韭菜的日常：覆被收割。",
+    "韭菜的日常：追高殺跌，反覆被收割。",
     "股市最大的謊言：我是為了價值投資而來的。",
     "韭菜的夢想：一夜暴富；韭菜的現實：一夜歸零。",
     "不是每棵韭菜都能成為參天大樹，大多數都被割掉了。",
@@ -52,14 +52,13 @@ investment_quotes = [
 # Streamlit 標題
 st.title("莫菲特報告生成器")
 
-# 自動顯示日期
-current_date = datetime.now().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
+# 自動顯示日期().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
 st.markdown(f"**報告日期:** {current_date}")
 
 # 使用者輸入
 company_name = st.text_input("1. 公司名稱:")
 old_price = st.number_input("2. 舊價格 (元):", min_value=0.0, format="%.2f")
-new_price = st.number_input("3. 新價格 (元):", min_value=02f")
+new_price = st.number_input("3. 新價格 (元):", min_value=0.0, format="%.2f")
 
 if st.button("生成報告"):
     if not company_name:
@@ -77,8 +76,7 @@ if st.button("生成報告"):
 {company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。
 
 """
-        if price_change > 0:
-            rating = random.choice(positive_ratings)
+        if            rating = random.choice(positive_ratings)
             action = random.choice(positive_actions)
             report += f"**維持:** {rating}\n"
             report += f"**評級 上升 至:** {action}\n"
@@ -86,7 +84,7 @@ if st.button("生成報告"):
             rating = random.choice(negative_ratings)
             action = random.choice(negative_actions)
             report += f"**維持:** {rating}\n"
-            report += f"**評級action}\n"
+            report += f"**評級 下降 至:** {action}\n"
         else:
             rating = random.choice(neutral_ratings)
             report += f"**維持:** {rating}\n"
