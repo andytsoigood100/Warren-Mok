@@ -50,11 +50,11 @@ investment_quotes = [
 ]
 
 # Streamlit 標題
-st.title("莫菲特韭菜報告生成器")
+st.title("莫菲特報告生成器")
 
 # 自動顯示日期
 current_date = datetime.now().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
-st.markdown(f"**報告日期:** {current_date}")
+st.markdown(f"報告日期: {current_date}")
 
 # 使用者輸入
 company_name = st.text_input("1. 公司名稱:")
@@ -73,31 +73,31 @@ if st.button("生成報告"):
 
         # 報告內容
         report = f"""
-**著名投資人莫菲特給予:**  
+著名投資人莫菲特給予:  
 {company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。
 
 """
         if price_change > 0:
-            rating = random.choice(positive_ratings)  # 直接賦值
+            rating = random.choice(positive_ratings)
             action = random.choice(positive_actions)
-            report += f"**維持:** {rating}\n"
-            report += f"**評級 上升 至:** {action}\n"
+            report += f"維持: {rating}\n"
+            report += f"評級 上升 至: {action}\n"
         elif price_change < 0:
-            rating = random.choice(negative_ratings)  # 直接賦值
+            rating = random.choice(negative_ratings)
             action = random.choice(negative_actions)
-            report += f"**維持:** {rating}\n"
-            report += f"**評級 下降 至:** {action}\n"
+            report += f"維持: {rating}\n"
+            report += f"評級 下降 至: {action}\n"
         else:
-            rating = random.choice(neutral_ratings)  # 直接賦值
-            report += f"**維持:** {rating}\n"
+            rating = random.choice(neutral_ratings)
+            report += f"維持: {rating}\n"
 
         # 添加投資箴言
         quote = random.choice(investment_quotes)
-        report += f"\n**——莫菲特箴言**\n> {quote}\n"
+        report += f"\n——莫菲特箴言\n> {quote}\n"
 
         # 添加莫菲特資歷
         report += """
-**——莫菲特資歷**  
+——莫菲特資歷  
 - 對沖基金莫郡創辦人, CEO, 董事長;  
 - 華爾街工作25年+ (1979-2004年);  
 - 天使投資人;
@@ -105,4 +105,3 @@ if st.button("生成報告"):
 
         # 在文本框中顯示完整的報告
         st.text_area("完整報告（可複製）:", report, height=300)
-
