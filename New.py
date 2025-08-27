@@ -1,144 +1,64 @@
-app.py
-
--- coding: utf-8 --
-
-#莫菲特報告生成器（Streamlit 版）
-
-import random
 import streamlit as st
+import random
 
-st.setpageconfig(pagetitle="莫菲特報告生成器", pageicon="📈")
+# 隨機生成的評價列表
+negative_ratings = [
+    "沽售評價", "極度悲觀", "等變恒大牆紙", "IFC天台見", "等破産", 
+    "割韭菜", "接火棒", "接刀", "坐艇", "鐵達尼號", 
+    "留返啲錢嚟搭巴士都好", "瞓天橋底", "送外賣維生", "點心紙變廢紙"
+]
 
+negative_actions = [
+    "恒大清倉散貨", "輸間廠", "慘過做X", "跑輸大市九條街", "等变大閘蟹"
+]
+
+positive_ratings = [
+    "借爆孖展買入", "跑赢大盤", "訓身買入", "All-in", "十倍孖展", 
+    "增大力持", "強烈買入", "唔买走宝", "時代既選擇", "財富自由", 
+    "極度看多", "槓桿狂熱", "確信買入", "估值重大重估"
+]
+
+positive_actions = [
+    "長線投資", "贏間廠", "魚翅撈飯", "食大糊", "與大市同步上升", "终极乐观信号"
+]
+
+neutral_ratings = ["中性評級", "按兵不動"]
+
+# Streamlit 標題
 st.title("莫菲特報告生成器")
-st.caption("快速生成股票目標價變動報告（純屬娛樂，勿作投資依據）")
 
-#隨機字串池（繁體）
+# 使用者輸入
+company_name = st.text_input("1. 公司名稱:")
+old_price = st.number_input("2. 舊價格 (元):", min_value=0.0, format="%.2f")
+new_price = st.number_input("3. 新價格 (元):", min_value=0.0, format="%.2f")
 
-NEG_EVALS = [
-    "沽售評價",
-    "極度悲觀",
-    "等變恒大牆紙",
-    "IFC天台見",
-    "等破產",
-    "割韭菜",
-    "接火棒",
-    "接刀",
-    "坐艇，鐵達尼號",
-    "留返啲錢嚟搭巴士都好",
-    "瞓天橋底",
-    "送外賣維生",
-    "點心紙變廢紙",
-]
-
-NEG_LEVELS = [
-    "恒大清倉散貨",
-    "輸間廠",
-    "慘過做X",
-    "跑輸大市九條街",
-    "等變大閘蟹",
-]
-
-POS_EVALS = [
-    "借爆孖展買入",
-    "跑贏大盤",
-    "訓身買入",
-    "All-in",
-    "十倍孖展",
-    "增大力持",
-    "強烈買入",
-    "唔買走寶",
-    "時代既選擇",
-    "財富自由",
-    "極度看多",
-    "槓桿狂熱",
-    "確信買入",
-    "估值重大重估",
-]
-
-POS_LEVELS = [
-    "長線投資",
-    "贏間廠",
-    "魚翅撈飯",
-    "食大糊",
-    "與大市同步上升",
-    "終極樂觀信號",
-]
-
-def formatpct(oldprice: float, new_price: float) -> tuple[str, str]:
-    """
-    回傳 (百分比字串, 方向詞)
-    百分比以舊價格為基準。
-    """
-    # 方向
-    if newprice > oldprice:
-        direction = "上升"
-    elif newprice < oldprice:
-        direction = "下降"
+if st.button("生成報告"):
+    if not company_name:
+        st.error("請填寫公司名稱！")
+    elif old_price == 0 and new_price == 0:
+        st.error("請填寫有效的價格！")
     else:
-        direction = "持平"
+        # 計算百分比變化
+        price_change = new_price - old_price
+        percentage_change = (price_change / old_price) * 100 if old_price != 0 else 0
 
-    # 百分比
-    if old_price == 0:
-        if new_price == 0:
-            pct_str = "+0.00%"
+        # 報告內容
+        st.markdown(f"**著名投資人莫菲特給予:** {company_name} 的目標價格從 {old_price:.2f} 元調整至 {new_price:.2f} 元 （變動: {percentage_change:+.2f}%），{'上升' if price_change > 0 else '下降'}。")
+
+        if price_change > 0:
+            rating = random.choice(positive_ratings)
+            action = random.choice(positive_actions)
+            st.markdown(f"**維持:** {rating}")
+            st.markdown(f"**評級 上升 至:** {action}")
+        elif price_change < 0:
+            rating = random.choice(negative_ratings)
+            action = random.choice(negative_actions)
+            st.markdown(f"**維持:** {rating}")
+            st.markdown(f"**評級 下降 至:** {action}")
         else:
-            pct_str = "無法計算（舊價格為 0）"
-        return pct_str, direction
+            rating = random.choice(neutral_ratings)
+            st.markdown(f"**維持:** {rating}")
 
-    pct = (newprice - oldprice) / old_price * 100
-    # 帶正負號
-    pct_str = f"{pct:+.2f}%"
-    return pct_str, direction
-
-with st.form("moffett_form"):
-    company = st.text_input("1）公司名稱", value="")
-    oldprice = st.numberinput("2）舊價格（元）", min_value=0.0, value=0.0, step=0.1, format="%.4f")
-    newprice = st.numberinput("3）新價格（元）", min_value=0.0, value=0.0, step=0.1, format="%.4f")
-    submitted = st.formsubmitbutton("生成報告")
-
-if submitted:
-    if not company.strip():
-        st.warning("請輸入公司名稱。")
-    else:
-        pctstr, direction = formatpct(oldprice, newprice)
-
-        # 標題行
-        headline = (
-            f"著名投資人莫菲特給予：{company} 的目標價格 "
-            f"從 {oldprice:.2f} 元調整至 {newprice:.2f} 元 "
-            f"(變動：{pct_str})，{direction}。"
-        )
-
-        st.subheader("報告結果")
-        st.write(headline)
-
-        # 根據升跌持平輸出評語／評級
-        if newprice < oldprice:
-            evalpick = random.choice(NEGEVALS)
-            levelpick = random.choice(NEGLEVELS)
-            st.write(f"維持「{eval_pick}」評價。")
-            st.write(f"評級 下降 至「{level_pick}」。")
-        elif newprice > oldprice:
-            evalpick = random.choice(POSEVALS)
-            levelpick = random.choice(POSLEVELS)
-            st.write(f"維持「{evalpick}」評價，評級 上升 至「{levelpick}」。")
-        else:
-            # 持平
-            st.write("維持中性評級／按兵不動。")
-
-        # 可選：匯總文字，方便複製
-        st.divider()
-        summary_lines = [headline]
-        if newprice < oldprice:
-            summarylines.append(f"維持「{evalpick}」評價。")
-            summarylines.append(f"評級 下降 至「{levelpick}」。")
-        elif newprice > oldprice:
-            summarylines.append(f"維持「{evalpick}」評價，評級 上升 至「{level_pick}」。")
-        else:
-            summary_lines.append("維持中性評級／按兵不動。")
-
-        fulltext = "\n".join(summarylines)
-
-        st.textarea("報告文本（可複製）", value=fulltext, height=180)
-
-
+# Streamlit 執行方式
+# 在終端運行以下命令：
+# streamlit run your_script_name.py
