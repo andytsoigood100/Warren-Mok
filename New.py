@@ -4,7 +4,7 @@ from datetime import datetime
 
 # 隨機生成的評價列表
 negative_ratings = [
-    "沽售評價", "極度悲觀", "等變恒大牆紙", "IFC天台見", "等破産", 
+    "沽售評價", "極度悲觀紙", "IFC天台見", "等破産", 
     "割韭菜", "接火棒", "接刀", "坐艇", "鐵達尼號", 
     "留返啲錢嚟搭巴士都好", "瞓天橋底", "送外賣維生", "點心紙變廢紙"
 ]
@@ -27,8 +27,7 @@ neutral_ratings = ["中性評級", "按兵不動"]
 
 # 投資箴言（調侃韭菜）
 investment_quotes = [
-    "韭菜的宿命：割了一茬，還會長出新的一茬。",
-    "新手入場三步曲：買高、套牢、割肉。",
+    "韭菜的宿命：割了一茬，還會長出新的一茬三步曲：買高、套牢、割肉。",
     "股市就像一場派對，韭菜永遠是最後一個知道的。",
     "不要和韭菜談風險，他們只關心暴富。",
     "韭菜的核心信仰：這次一定會漲。",
@@ -45,7 +44,7 @@ investment_quotes = [
     "韭菜的信仰崩塌：原來我不會賺錢，只會虧錢。",
     "韭菜的生存法則：越跌越買，直到彈盡糧絕。",
     "股市裡的成功秘訣：當別人都是韭菜時，你已經是莊家了。",
-    "韭菜的終極目標：從小韭菜變成老韭菜，再到被割乾淨。",
+    "韭菜的韭菜變成老韭菜，再到被割乾淨。",
     "股市的本質：主力做局，韭菜入局，最後韭菜出局。",
 ]
 
@@ -58,8 +57,18 @@ st.markdown(f"報告日期: {current_date}")
 
 # 使用者輸入
 company_name = st.text_input("1. 公司名稱:")
-old_price = st.number_input("2. 舊價格 (元):", min_value=0.0, format="%.2f")
-new_price = st.number_input("3. 新價格 (元):", min_value=0.0, format="%.2f")
+old_price = st.number_input(
+    label="2. 舊價格 (元):",
+    min_value=0.0,
+    value=0.0,  # 默認值
+    format="%.2f"
+)
+new_price = st.number_input(
+    label="3. 新價格 (元):",
+    min_value=0.0,
+    value=0.0,  # 默認值
+    format="%.2f"
+)
 
 if st.button("生成報告"):
     if not company_name:
@@ -69,7 +78,7 @@ if st.button("生成報告"):
     else:
         # 計算百分比變化
         price_change = new_price - old_price
-        percentage_change = (price_change / old_price) * 100 if old_price != 0 else 0
+        percentage old_price) * 100 if old_price != 0 else 0
 
         # 報告內容
         report = f"""
@@ -98,7 +107,7 @@ if st.button("生成報告"):
         # 添加莫菲特資歷
         report += """
 ——莫菲特資歷  
-- 對沖基金莫郡創辦人, CEO, 董事長;  
+- 對沖基金莫, 董事長;  
 - 華爾街工作25年+ (1979-2004年);  
 - 天使投資人;
 """
