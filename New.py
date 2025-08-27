@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+from datetime import datetime
 
 # 隨機生成的評價列表
 negative_ratings = [
@@ -24,8 +25,36 @@ positive_actions = [
 
 neutral_ratings = ["中性評級", "按兵不動"]
 
+# 投資箴言（調侃韭菜）
+investment_quotes = [
+    "韭菜的宿命：割了一茬，還會長出新的一茬。",
+    "新手入場三步曲：買高、套牢、割肉。",
+    "股市就像一場派對，韭菜永遠是最後一個知道的。",
+    "不要和韭菜談風險，他們只關心暴富。",
+    "韭菜的核心信仰：這次一定會漲。",
+    "股市的真相：韭菜的錢包是主力的提款機。",
+    "韭菜的特長：在最高點買入，在最低點賣出。",
+    "韭菜的口頭禪：再等等，應該會漲回來的。",
+    "主力吃肉，韭菜喝湯；主力撤退，韭菜進場。",
+    "每位韭菜的心聲：我就是那個例外。",
+    "韭菜的優勢：虧錢的速度比別人快。",
+    "韭菜的日常：追高殺跌，反覆被收割。",
+    "股市最大的謊言：我是為了價值投資而來的。",
+    "韭菜的夢想：一夜暴富；韭菜的現實：一夜歸零。",
+    "不是每棵韭菜都能成為參天大樹，大多數都被割掉了。",
+    "韭菜的信仰崩塌：原來我不會賺錢，只會虧錢。",
+    "韭菜的生存法則：越跌越買，直到彈盡糧絕。",
+    "股市裡的成功秘訣：當別人都是韭菜時，你已經是莊家了。",
+    "韭菜的終極目標：從小韭菜變成老韭菜，再到被割乾淨。",
+    "股市的本質：主力做局，韭菜入局，最後韭菜出局。",
+]
+
 # Streamlit 標題
 st.title("莫菲特報告生成器")
+
+# 自動顯示日期
+current_date = datetime.now().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
+st.markdown(f"**報告日期:** {current_date}")
 
 # 使用者輸入
 company_name = st.text_input("1. 公司名稱:")
@@ -59,6 +88,15 @@ if st.button("生成報告"):
             rating = random.choice(neutral_ratings)
             st.markdown(f"**維持:** {rating}")
 
-# Streamlit 執行方式
-# 在終端運行以下命令：
-# streamlit run your_script_name.py
+# 隨機顯示投資箴言
+st.markdown(f"**——莫菲特箴言**")
+st.markdown(f"> {random.choice(investment_quotes)}")
+
+# 最下方顯示莫菲特資歷
+st.markdown("""
+---
+**——莫菲特資歷**  
+- 對沖基金莫郡創辦人, CEO, 董事長;  
+- 華爾街工作25年+ (1979-2004年);  
+- 天使投資人;
+""")
