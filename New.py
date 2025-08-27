@@ -50,7 +50,7 @@ investment_quotes = [
 ]
 
 # Streamlit 標題
-st.title("莫菲特報告生成器")
+st.title("莫菲特韭菜報告生成器")
 
 # 自動顯示日期
 current_date = datetime.now().strftime("%Y年%m月%d日")  # 格式化為繁體中文日期
@@ -105,3 +105,4 @@ if st.button("生成報告"):
 
         # 在文本框中顯示完整的報告
         st.text_area("完整報告（可複製）:", report, height=300)
+
